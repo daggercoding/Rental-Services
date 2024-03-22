@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <>
-    <div className="flex justify-between p-2 bg-gray-900 text-white w-[100vw]">
+    <div className="flex justify-between p-2 bg-gray-900 text-white w-[100%]">
     <span className="flex"><img className="h-6"  src="favicon.ico"/>Rental-Servives</span>
     <nav className="flex justify-between w-[30vw]">
         {/* <Link to="/">Home</Link>

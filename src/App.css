@@ -1,3 +1,8 @@
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+}
 input{
   width: 80%;
   margin: 5px;
@@ -8,4 +13,15 @@ input{
 nav a{
   width: 5vw;
   margin: 0vw 2vw 0vw -17vw;
+}
+#rentBtn{
+  border-radius: 2px;
+}
+
+#rentBtn:hover{
+background-color: azure;
+color: black;
+transition: all ease-in-out 0.5s;
+border-radius: 5px;
+box-shadow: -1px -1px 1px white;
 }
