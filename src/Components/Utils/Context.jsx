@@ -1,15 +1,12 @@
 import {createContext} from "react";
-import { useState } from "react";
 
 export const RandomContext = createContext()
 
 function Context ({children}){
 
-let [loginForm,setLoginForm]=useState(false)
-
    return(
    <>
-   <RandomContext.Provider value={{loginForm,setLoginForm}}>
+   <RandomContext.Provider value={{name:"vishal"}}>
     {children}
    </RandomContext.Provider>
    </>

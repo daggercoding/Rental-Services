@@ -12,7 +12,6 @@ const Cards = () => {
   return (
     <div className='flex flex-wrap justify-evenly w-[100%] mt-2'>
       {data.map((user)=><Card user={user}></Card>)}
-      
     </div>
   )
 }
