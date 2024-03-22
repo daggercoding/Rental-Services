@@ -1,21 +1,20 @@
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
-import React from "react";
+import { useContext, useState } from "react"
+import { RandomContext } from "./Components/Utils/Context";
+import Home from "./Components/HomePage/Home";
 
 function App() {
-  
-  let condition=false
-  function getToggle(value)
-  {
-    condition=value
-  }
+  let {loginForm}=useContext(RandomContext)
+  let {togle,settogle}=useState(false)
 
   return (
-      <div className="flex flex-col w-full justify-center items-center ">
-        <Navbar func={getToggle}></Navbar>
-        {condition&&<Login/>}
-      </div>
+       <div className="flex flex-col w-full justify-center items-center ">
+        <Navbar></Navbar>
+        {loginForm&&<Login/>}
+        <Home/>
+       </div>
   );
 }
 

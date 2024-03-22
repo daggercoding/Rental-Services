@@ -5,3 +5,7 @@ input{
   border: 1px solid black;
   border-radius: 4px;
 }
+nav a{
+  width: 5vw;
+  margin: 0vw 2vw 0vw -17vw;
+}
