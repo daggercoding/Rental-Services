@@ -7,7 +7,18 @@ const userData = new mongoose.Schema({
     email:String,
     password:String
 })
+const UserItem = new mongoose.Schema({
+    product:String,
+    link:String,
+    charges:Number,
+    duration:Number,
+    quantity:Number
+})
 
+let userItem = mongoose.model("items",UserItem)
 let userDetail = mongoose.model("users",userData)
 
-module.exports=userDetail
+module.exports={
+    userDetail,
+    userItem                                                                                                                                                                                                                                                                                                                                                                                                        
+}
