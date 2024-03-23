@@ -6,7 +6,7 @@ const AboutPage = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-[100%]">
         <div className="text-center">
           <h2 className="text-4xl font-extrabold text-gray-400   sm:text-5xl">
-            Welcome to Rent-Services
+            Welcome to Rental-Services
           </h2>
           <p className="mt-4 text-xl text-gray-600">
             Your premier destination for hassle-free renting and listing services
