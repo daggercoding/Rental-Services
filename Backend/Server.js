@@ -1,5 +1,5 @@
 const express =require("express")
-const userDetail = require("./Model/Db")
+const {userDetail,userItem} = require("./Model/Db")
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken")
 const env = require("dotenv")
@@ -37,6 +37,20 @@ app.post("/signup",async(req,res)=>{
         expiresIn:process.env.EXPIRE
     })
     res.cookie("Token",token,{ httpOnly: true})
+    res.redirect("http://localhost:3000/")
+})
+
+app.post("/addItem",async(req,res)=>{
+    console.log(req.body)
+    const newItem = new userItem({
+        product:req.body.pname,
+        link:req.body.link,
+        charges:req.body.price,
+        duration:req.body.duration,
+        quantity:req.body.quantity
+    })
+    await newItem.save()
+    res.status(200)
     res.redirect("http://localhost:3000/")
 })
 
