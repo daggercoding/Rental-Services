@@ -1,18 +1,32 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useContext} from 'react'
+import { RandomContext } from '../Utils/Context'
 import Card from "./Card"
+import { useNavigate } from 'react-router-dom'
+
 const Cards = () => {
   let [data,setData]=useState([])
+  let{datac,loading} = useContext(RandomContext)
+
+  const Navigate = useNavigate()
+  
   useEffect(()=>{
-    fetch("https://dummyjson.com/products")
-    .then((resp)=>resp.json())
-    .then((data)=>setData(data.products))
-    .catch((err)=>console.log(err.message))
-  },[])
-  console.log(data)
+    if(document.cookie.includes("token")){
+        setData(datac)
+    }else
+    {
+      Navigate("/login")
+    }
+    
+  },[datac,Navigate])
+  
+
   return (
-    <div className='flex flex-wrap justify-evenly w-[100%] mt-2'>
-      {data.map((user)=><Card user={user}></Card>)}
-    </div>
+    <>
+    
+    {loading?(<h1 className='w-[100vw] h-[100vh] bg-white'>loading</h1>):(<div className='flex flex-wrap justify-evenly w-[100%] mt-4'>
+    {data.map((user, index)=><Card key={index} user={user}></Card>)}
+    </div>)}
+    </>   
   )
 }
 
