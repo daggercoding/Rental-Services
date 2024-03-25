@@ -25,3 +25,11 @@ transition: all ease-in-out 0.5s;
 border-radius: 5px;
 box-shadow: -1px -1px 1px white;
 }
+
+.navBar a{
+  width: auto;
+  height: fit-content;
+}
+svg{
+  font-size: 1.5rem;
+}
