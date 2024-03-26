@@ -9,6 +9,14 @@ const Card = ({user}) => {
   function handleClick(event){
     let filterData=datac.find((el)=>el._id===event.target.value)
     setFilterData(filterData)
+
+    fetch("http://localhost:8000/cartItem",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(filterData)
+    }).then(resp=>console.log(resp))
+    .catch(err=>console.log(err.message))
+
     setCheckList((prev)=>[filterData,...prev])
   }
 

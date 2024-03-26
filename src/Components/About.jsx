@@ -55,7 +55,7 @@ const AboutPage = () => {
           </p>
           <ul className="flex justify-between mt-6 text-lg text-gray-600 list-disc">
             <li>Phone : 9399769550</li>
-            <li>Email : <a href="mailto:reactvishal@gmail.com" className="text-blue-500">reactvishal@gmail.com</a></li>
+            <li>Email : <a className="text-blue-500" href="mailto:reactvishal@gmail.com">reactvishal@gmail</a></li>
             <li>Website : <a target='_blank' href="https://hive.blog/@okluvmee" className="text-blue-500">rentalservices.com</a></li>
           </ul>
         </div>

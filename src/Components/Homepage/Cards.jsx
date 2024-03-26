@@ -19,7 +19,6 @@ const Cards = () => {
     
   },[datac,Navigate])
   
-
   return (
     <>
     
