@@ -10,15 +10,29 @@ const userData = new mongoose.Schema({
 const UserItem = new mongoose.Schema({
     product:String,
     link:String,
+    description:String,
     charges:Number,
     duration:Number,
     quantity:Number
 })
 
+const cartItem = new mongoose.Schema({
+    _id:String,
+    product:String,
+    link:String,
+    description:String,
+    charges:Number,
+    duration:Number,
+    quantity:Number
+})
+
+
 let userItem = mongoose.model("items",UserItem)
 let userDetail = mongoose.model("users",userData)
+let CartItem = mongoose.model("cartItems",cartItem)
 
 module.exports={
     userDetail,
-    userItem                                                                                                                                                                                                                                                                                                                                                                                                        
+    userItem,
+    CartItem                                                                                                                                                                                                                                                                                                                                                                                                        
 }
