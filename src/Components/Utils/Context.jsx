@@ -7,6 +7,7 @@ function Context ({children}){
    let [filterData,setFilterData]=useState("")
    let [datac,setData]=useState([])
    let [checkList,setCheckList]=useState([])
+   let [login,setLogin]=useState(document.cookie.includes("token"))
    
   useEffect(()=>{
     fetch("http://localhost:8000/getitems")
@@ -18,7 +19,7 @@ function Context ({children}){
 
    return(
    <>
-   <RandomContext.Provider value={{datac,filterData,setFilterData,setCheckList,checkList}}>
+   <RandomContext.Provider value={{datac,filterData,setFilterData,setCheckList,checkList,login,setLogin}}>
     {children}
    </RandomContext.Provider>
    </>
