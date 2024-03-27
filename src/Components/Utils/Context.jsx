@@ -4,9 +4,7 @@ export const RandomContext = createContext()
 
 function Context ({children}){
 
-   let [filterData,setFilterData]=useState("")
    let [datac,setData]=useState([])
-   let [checkList,setCheckList]=useState([])
    let [login,setLogin]=useState(document.cookie.includes("token"))
    
   useEffect(()=>{
@@ -19,7 +17,7 @@ function Context ({children}){
 
    return(
    <>
-   <RandomContext.Provider value={{datac,filterData,setFilterData,setCheckList,checkList,login,setLogin}}>
+   <RandomContext.Provider value={{datac,login,setLogin}}>
     {children}
    </RandomContext.Provider>
    </>

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
+
 function Login(){
-    return(    
+    return(  
         <form  action="http://localhost:8000/login" method="POST" className="flex flex-col w-[50vw] mt-20 border-2 p-10 rounded items-center " >
          <h1 className="text-3xl antialiased font-bold">LOGIN</h1>
          <input type="text" name="name" placeholder="UserName"/>

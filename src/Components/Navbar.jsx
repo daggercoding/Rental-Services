@@ -1,10 +1,10 @@
 import { Link} from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
 import { CiShoppingCart } from "react-icons/ci";
+import { RandomContext } from "./Utils/Context";
 
 const Navbar = () => {
-  const [logIn, setLogin] = useState(document.cookie.includes("token"));
-
+  let{login,setLogin}=useContext(RandomContext)
   function handleLogin(){
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   setLogin(false)
@@ -22,7 +22,7 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/createList">List_Item</Link>
-          <Link to="/login" onClick={handleLogin} >{logIn ? "Logout" : "LogIn"}</Link>
+          <Link to="/login" onClick={handleLogin} >{login ? "Logout" : "LogIn"}</Link>
           <Link to="/cart"> <CiShoppingCart/></Link>
         </nav>
         </div>
