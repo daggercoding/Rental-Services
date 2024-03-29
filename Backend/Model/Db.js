@@ -1,13 +1,15 @@
-const mongoose =require("mongoose")
+const mongoose = require("mongoose")
 mongoose.connect("mongodb://127.0.0.1:27017/RentalData")
 .then(()=>console.log("Connected To Database"))
 
-const userData = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name:String,
     email:String,
-    password:String
+    password:String,
+    cart:[{type: mongoose.Types.ObjectId ,ref:"items"}]
 })
-const UserItem = new mongoose.Schema({
+
+const itemSchema = new mongoose.Schema({
     product:String,
     link:String,
     description:String,
@@ -16,7 +18,7 @@ const UserItem = new mongoose.Schema({
     quantity:Number
 })
 
-const cartItem = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
     _id:String,
     product:String,
     link:String,
@@ -26,10 +28,9 @@ const cartItem = new mongoose.Schema({
     quantity:Number
 })
 
-
-let userItem = mongoose.model("items",UserItem)
-let userDetail = mongoose.model("users",userData)
-let CartItem = mongoose.model("cartItems",cartItem)
+let userItem = mongoose.model("items",itemSchema)
+let userDetail = mongoose.model("users",userSchema)
+let CartItem = mongoose.model("cartItems",cartSchema)
 
 module.exports={
     userDetail,
