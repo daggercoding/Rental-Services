@@ -8,20 +8,26 @@ module.exports.sayHello=(req,res)=>{
     res.send("hello ji")
 }
 
-module.exports.login= async (req,res)=>{
-    const validUser=await userDetail.find({name:req.body.name,password:req.body.password})
-    if(validUser.length<=0)
-    {
-     res.redirect("http://localhost:3000/login")
-    }
-    else{
-     const token = jwt.sign({_id:validUser[0]._id},process.env.SECRET,{
-         expiresIn:process.env.EXPIRE
-     }) 
-     res.cookie("token",token)
-     res.redirect("http://localhost:3000")
-    }
- }
+module.exports.login = async (req, res) => {
+  try {
+      const validUser = await userDetail.find({ name: req.body.name, password: req.body.password });
+      console.log(validUser.length);
+      if (validUser.length <= 0) {
+          res.status(401).send("Invalid credentials");
+          return;
+      }
+      const token = jwt.sign({ _id: validUser[0]._id }, process.env.SECRET, {
+          expiresIn: process.env.EXPIRE
+      });
+        res.cookie("token", token, { httpOnly: true });
+        res.status(200).json([{ id: validUser[0]._id }]); 
+      return;
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+  }
+};
+
 
  module.exports.signUp=async(req,res)=>{
     const user= new userDetail({
@@ -97,4 +103,37 @@ module.exports.login= async (req,res)=>{
     res.status(200).send({
         data:deletedItem
     })
+}
+
+module.exports.updateProduct =async(req, res) => {
+  try {
+    const updatedUser = await userItem.findByIdAndUpdate(req.body.id,req.body,{ new: true });
+    res.status(200).send(updatedUser)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+}
+
+
+module.exports.addToCart = async (req, res) => {
+  try {
+      const userId = req.body.userId;
+      const productId = req.body.productId;
+
+      const updatedUser = await userDetail.findByIdAndUpdate(
+          userId,
+          { $addToSet: { cart: productId } },
+          { new: true }
+      );
+
+      if (updatedUser) {
+          res.send("Added successfully");
+      } else {
+          res.status(500).send("Cannot add to cart");
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+  }
 }
