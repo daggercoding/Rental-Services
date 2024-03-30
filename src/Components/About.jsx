@@ -13,7 +13,7 @@ const AboutPage = () => {
             Your premier destination for hassle-free renting and listing services
           </p>
         </div>
-        <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:gap-8  md:grid-cols-3">
           <div className="rounded-lg bg-black overflow-hidden shadow border-cyan-600 border-[0.5px]">
             <div className="px-4 py-3">
               <Link to="/" ><img  className="h-72 w-full object-cover bg-slate-900" src="https://th.bing.com/th/id/R.1e05a44ab7a93b87ffd960eb10b066da?rik=eTb3TvqmOOG%2bNA&riu=http%3a%2f%2fwww.moredividends.com%2fwp-content%2fuploads%2f2018%2f10%2fbuy-dont-sell.jpg&ehk=uHgeQxWuM%2bJbPx98kjuKsnWVTYO0S%2fOXQWbmIM8G9eo%3d&risl=&pid=ImgRaw&r=0" alt="Placeholder" /></Link>

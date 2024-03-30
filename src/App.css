@@ -33,3 +33,34 @@ box-shadow: -1px -1px 1px white;
 svg{
   font-size: 1.5rem;
 }
+
+.updateConatner label{
+  width:79%;
+  margin-bottom:1px
+}
+
+/* @media (max-width:600px){
+  .updateConatner{
+    width:90%;
+    margin-top:15%;
+    padding:10px
+  }
+  .updateConatner textarea,
+  .updateConatner input {
+    width:100%;
+    margin-bottom:1px
+  }
+
+  .updateConatner label {
+    width:100%;
+    margin-top: 1%;
+    margin-bottom:1%;
+  }
+
+  .navBar{
+    display: none;
+  }
+  .cart{
+    display: block;
+  }
+} */

@@ -3,23 +3,27 @@ import { RandomContext } from "../Utils/Context";
 import { DNA } from "react-loader-spinner";
 
 const CartContaner = () => {
-  let { login } = useContext(RandomContext);
+  let { login ,setCount,count } = useContext(RandomContext);
   let [checkList, setCheckList] = useState([]);
   let [total, setTotal] = useState(0);
   let [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log("useEffect executed");
-    fetch("http://localhost:8000/cartItems")
-      .then((resp) => resp.json())
-      .then((data) => {
-        setCheckList(data.data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  // Function to calculate total for each item in the cart
+     useEffect(() => {
+     const id = JSON.parse(localStorage.getItem("token"))
+     const data ={id:id}
+     fetch("http://localhost:8000/singleUser",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(data)
+     })
+    .then(resp=>resp.json())
+    .then(data=>{
+      setCheckList(data.data.cart)
+      setLoading(false)
+    })
+    .catch(err=>console.log(err.message))
+  }, [count]);
+  
   const calculateTotal = () => {
     let sum = 0;
     checkList.forEach((item) => {
@@ -29,25 +33,24 @@ const CartContaner = () => {
   };
 
   useEffect(() => {
-    // Update total whenever checkList changes
-    console.log("check")
     setTotal(calculateTotal());
+    setCount(checkList.length)
   }, [checkList]);
 
   function handleClick(id) {
+    const ids = JSON.parse(localStorage.getItem("token"))
+    const data={userId:ids,productId:id }
     fetch("http://localhost:8000/deleteCart", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id: id,
-      }),
+      body: JSON.stringify(data)
     })
       .then((resp) => resp.json())
-      .then((data) => {
-        setTotal((prev) => prev - data.data.charges);
-        setCheckList((prev) => prev.filter((item) => item._id !== id));
+      .then((data) => { 
+        console.log(data)
+        setCheckList(data)
       })
       .catch((err) => console.log(err));
   }
@@ -55,16 +58,16 @@ const CartContaner = () => {
   if (!login) {
     return (
       <div className="flex gap-4  justify-center items-center h-[95vh]">
-        <DNA />
+        <DNA/>
         <h1 className="text-3xl font-bold">Your Cart Is Empty</h1>
         <DNA />
       </div>
     );
   }
-
+  
   return (
     <>
-      <h1 className="text-2xl w-full  text-center p-4 border-gray-700 border-y-2">
+      <h1 className="text-xl sm:text-2xl w-full  text-center p-4 border-gray-700 border-y-2">
         Shopping Cart
       </h1>
       {loading ? (
@@ -72,8 +75,8 @@ const CartContaner = () => {
           <DNA />
         </div>
       ) : (
-        <div className="md:flex min-w-24 w-[100%]">
-          <div className="w-[55%]  p-10 m-1">
+        <div className="sm:flex   w-[100%] h-full">
+          <div className="sm:w-[55%]  sm:p-10 m-2">
             {checkList.map((product, index) => {
               return (
                 <div
@@ -107,9 +110,9 @@ const CartContaner = () => {
               );
             })}
           </div>
-
-          <div className="w-[45%] align-middle max-h-[60vh]  p-10 m-1">
-            <h1 className="text-2xl mb-8">Order Summary</h1>
+          <div className="sm:w-[45%] align-middle p-10 m-1" >
+          <div className=" sticky -top-1">
+            <h1 className="text-2xl mb-8 ">Order Summary</h1>
             <p className="flex justify-between w-[80%] mb-3">
               <span>SubTotal : </span> <span>{total} $</span>
             </p>
@@ -126,6 +129,7 @@ const CartContaner = () => {
               <span>Order Total: </span> <span>{total + 199}$</span>
             </h1>
             <hr />
+          </div>
           </div>
         </div>
       )}
