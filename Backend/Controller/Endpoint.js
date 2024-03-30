@@ -1,27 +1,25 @@
-const {userDetail,userItem,CartItem} = require("../Model/Db")
+const {userDetail,userItem} = require("../Model/Db")
+
 const jwt = require("jsonwebtoken")
 const env = require("dotenv")
 env.config()
 
-
-module.exports.sayHello=(req,res)=>{
-    res.send("hello ji")
-}
-
 module.exports.login = async (req, res) => {
   try {
       const validUser = await userDetail.find({ name: req.body.name, password: req.body.password });
-      console.log(validUser.length);
+      console.log(validUser);
       if (validUser.length <= 0) {
           res.status(401).send("Invalid credentials");
           return;
-      }
-      const token = jwt.sign({ _id: validUser[0]._id }, process.env.SECRET, {
+      }else{
+          const token = jwt.sign({ _id: validUser[0]._id }, process.env.SECRET, {
           expiresIn: process.env.EXPIRE
       });
-        res.cookie("token", token, { httpOnly: true });
+        res.cookie("token",token,{ httpOnly: true})
         res.status(200).json([{ id: validUser[0]._id }]); 
       return;
+      }
+      
   } catch (error) {
       console.error(error);
       res.status(500).send("Internal server error");
@@ -59,49 +57,8 @@ module.exports.login = async (req, res) => {
 
  module.exports.getitems=async(req,res)=>{
     const data = await userItem.find()
-    const data2= await CartItem.find()
     res.status(200).json({
-        data:data,
-        length:data2.length
-    })
-}
-
- module.exports.cartItem=async (req, res) => {
-    try {
-      let filterUser = new CartItem(req.body);
-      let allData = await CartItem.findById(req.body._id);
-      let data= await CartItem.find()
-      if (allData === null) {
-        await filterUser.save();
-        res.status(200).json({ status:"Success",length:data.length});
-      }else{
-        res.status(400).json(
-        {status:"Item Already Exist",length:data.length})
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-  
-
- module.exports.cartItems=async (req, res) => {
-    try {
-      let data = await CartItem.find();
-      res.status(200).json({
-        status: "Success",
         data
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  }
-
-  module.exports.deleteCart=async(req,res)=>{
-    const deletedItem=await CartItem.findByIdAndDelete(req.body.id)
-    res.status(200).send({
-        data:deletedItem
     })
 }
 
@@ -115,6 +72,17 @@ module.exports.updateProduct =async(req, res) => {
   }
 }
 
+module.exports.deleteCart= async (req, res) => {
+  try {
+      const userId = req.body.userId;
+      const productId = req.body.productId;
+      let updated=await userDetail.findByIdAndUpdate(userId, { $pull: { cart: productId}},{new:true}).populate("cart");
+      res.status(200).send(updated.cart);
+  } catch (error) {
+      console.error("Error deleting item from cart:", error);
+      res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 module.exports.addToCart = async (req, res) => {
   try {
@@ -126,9 +94,9 @@ module.exports.addToCart = async (req, res) => {
           { $addToSet: { cart: productId } },
           { new: true }
       );
-
+     
       if (updatedUser) {
-          res.send("Added successfully");
+          res.status(200).json(updatedUser.cart.length);
       } else {
           res.status(500).send("Cannot add to cart");
       }
@@ -137,3 +105,23 @@ module.exports.addToCart = async (req, res) => {
       res.status(500).send("Internal Server Error");
   }
 }
+
+module.exports.singleUser=async(req,res)=>{
+  try{
+    const data = await userDetail.findById(req.body.id).populate("cart")
+    if(data){
+     res.status(200).send({data})
+    }else{
+      res.status(404).send("No User Found For The Provided Id")
+    } 
+  }catch(err){
+    res.send(err)
+  }
+}
+
+module.exports.getItemById=async(req,res)=>{
+  try{const data = await userItem.findById(req.params.id)
+  res.status(200).send(data)}catch(err){
+   res.send(err)
+  }
+  }
