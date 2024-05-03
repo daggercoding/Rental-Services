@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RandomContext } from "../Utils/Context";
 import { DNA } from "react-loader-spinner";
-
+import Cartcard from "./Cartcard";
 const CartContaner = () => {
   let { login ,setCount,count } = useContext(RandomContext);
   let [checkList, setCheckList] = useState([]);
@@ -37,6 +37,7 @@ const CartContaner = () => {
     setCount(checkList.length)
   }, [checkList]);
 
+
   function handleClick(id) {
     const ids = JSON.parse(localStorage.getItem("token"))
     const data={userId:ids,productId:id }
@@ -54,7 +55,6 @@ const CartContaner = () => {
       })
       .catch((err) => console.log(err));
   }
-
   if (!login) {
     return (
       <div className="flex gap-4  justify-center items-center h-[95vh]">
@@ -64,6 +64,7 @@ const CartContaner = () => {
       </div>
     );
   }
+  
   
   return (
     <>
@@ -79,34 +80,7 @@ const CartContaner = () => {
           <div className="sm:w-[55%]  sm:p-10 m-2">
             {checkList.map((product, index) => {
               return (
-                <div
-                  key={index}
-                  className="w-[100%] h-36 flex border-white border-[0.5px] mb-2 rounded-md bg-neutral-800 text-white p-1"
-                >
-                  <div className="w-[30%]  border-[1px] border-white ">
-                    <img
-                      className="h-full w-full p-2 bg-black"
-                      src={product.link}
-                      alt=""
-                    />
-                  </div>
-                  <div className="w-full">
-                    <p className="flex justify-between w-[100%] p-4">
-                      <span>{product.product}</span>
-                      <span>{product.charges} $</span>
-                    </p>
-                    <p className="flex justify-between w-[100%] p-4">
-                      <span className="text-green-300">InStock</span>
-                      <button
-                        onClick={() => handleClick(product?._id)}
-                        className="text-white border-white border-[0.5px] p-1 rounded-s transition-all cursor-pointer"
-                      >
-                        {" "}
-                        Delete
-                      </button>
-                    </p>
-                  </div>
-                </div>
+                <Cartcard product={product} handleClick={handleClick} />
               );
             })}
           </div>
@@ -129,6 +103,7 @@ const CartContaner = () => {
               <span>Order Total: </span> <span>{total + 199}$</span>
             </h1>
             <hr />
+            <button className="w-[100%] bg-green-400 text-black from-stone-950 font-bold rounded-md p-1 mt-2">Buy Now</button>
           </div>
           </div>
         </div>
