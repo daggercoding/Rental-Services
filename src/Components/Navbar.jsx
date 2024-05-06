@@ -41,7 +41,7 @@ const Navbar = () => {
       <div className="grid grid-cols-12 black w-full place-content-center p-1 bg-gray-900">
         <div className="grid col-span-3 p-2 justify-items-center">
          <span onClick={()=>navigate("/")} className="flex gap-1">
-         <img className="h-6" src="favicon.ico" alt=""/>
+         <img className="h-6"  src="https://th.bing.com/th/id/R.56837024cfaa83bb6e2b6b21b23f5456?rik=rJtq97Mq2d5yiw&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fshopping-transparent%2fshopping-transparent-3.png&ehk=N4Q3nXgWCNs43l5ZsEGWcX3uTa53hw5B5OrkRXW3uvI%3d&risl=&pid=ImgRaw&r=0" alt=""/>
           Rental-Servives
          </span>
         </div>
