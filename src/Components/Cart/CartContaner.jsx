@@ -25,7 +25,6 @@ const CartContaner = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
         setCheckList(data.data.cart);
         setUser(data.data);
         setLoading(false);
@@ -174,7 +173,7 @@ const CartContaner = () => {
         <div className="sm:flex   w-[100%] h-full">
           <div className="sm:w-[55%]  sm:p-10 m-2">
             {checkList.map((product, index) => {
-              return <Cartcard product={product} handleClick={handleClick} />;
+              return <Cartcard product={product} handleClick={handleClick} setTotal={setTotal} />;
             })}
           </div>
           <div className="sm:w-[45%] align-middle p-10 m-1">
