@@ -7,28 +7,86 @@
 </head>
 <body>
     <input id="inp" type="text" />
-    <button id="btn"></button>
+    <button id="btn" oninput="handleClick()"></button>
 
     <script>
-      
-      const eventFunction = (e)=>{
+    function handleClick(e){
       console.log(e.target.value)
-      }
+      console.log("i am clicked")
+    }
 
-      const debounce = (func,delay)=>{
-        let timer;
-       return function(...args){
-        clearTimeout(timer)
-        timer=setTimeout(()=>{
-         func(...args)
-        },delay)
-       }
+    function myDebounce(func,delay){
+    let timer;
+     return function(...args){
+      clearTimeout(timer)
+       timer=setTimeout(()=>{
+        func(...args)
+       },delay)
+     }
+    }
+
+    // document.getElementById("inp").addEventListener("input",myDebounce(handleClick,1000))
+    // document.getElementById("inp").addEventListener("input",handleClick)
+   
+
+
+
+
+
+
+
+
+
+    function printPattern(){
+      let str=""
+      for(let i=5 ; i>=1 ; i--){
+      
+        for(let k=i ; k>0 ; k--)
+        {
+          str+=k
+        }
+        str+="\n"
       }
+      console.log(str)
+    }
+    printPattern()
+    
+    
+    let arr = [1,2,"hello",7,"b"];
+    console.log(arr) // 1,2,1,7,1
+    arr.forEach((num,ind)=>{
+      if(typeof(num)=="string"){
+        arr[ind]=1
+      }
+    })
+
+    console.log(arr)
+      
+    //   const eventFunction = (e)=>{
+    //   console.log(e.target.value)
+    //   }
+
+    //   const debounce = (func,delay)=>{
+    //     let timer;
+    //    return function(...args){
+    //     clearTimeout(timer)
+    //     timer=setTimeout(()=>{
+    //      func(...args)
+    //     },delay)
+    //    }
+    //   }
 
      
     
-     document.getElementById("inp").addEventListener("input",debounce(eventFunction,1000))
-        
+    //  document.getElementById("inp").addEventListener("input",debounce(eventFunction,1000))
+         
+     const testing =[{id:1232, qnt:1},{id:12211, qnt:2},{id:2121, qnt:4}];
+
+
+     testing[2].qnt = 5;
+     console.log(testing)
+     
+
     </script>
 </body>
 </html>
