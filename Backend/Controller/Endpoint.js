@@ -72,37 +72,6 @@ module.exports.updateProduct =async(req, res) => {
   }
 }
 
-module.exports.deleteCart= async (req, res) => {
-  try {
-      const userId = req.body.userId;
-      const productId = req.body.productId;
-      let updated=await userDetail.findByIdAndUpdate(userId, { $pull: { cart: productId}},{new:true}).populate("cart");
-      res.status(200).send(updated.cart);
-  } catch (error) {
-      console.error("Error deleting item from cart:", error);
-      res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-// module.exports.addToCart = async (req, res) => {
-//   try {
-//       const userId = req.body.userId;
-//       const productId = req.body.productId;
-//       const updatedUser = await userDetail.findByIdAndUpdate(
-//           userId,
-//           { $addToSet: {cart: {id:productId, Qnt:1} } },
-//           { new: true }
-//       );
-//       if (updatedUser) {
-//           res.status(200).json(updatedUser.cart.length);
-//       } else {
-//           res.status(500).send("Cannot add to cart");
-//       }
-//   } catch (error) {
-//       console.error(error);
-//       res.status(500).send("Internal Server Error");
-//   }
-// }
 module.exports.addToCart = async (req, res) => {
   try {
     const userId = req.body.userId;
@@ -112,10 +81,9 @@ module.exports.addToCart = async (req, res) => {
     const user = await userDetail.findById(userId);
 
     // Check if the product already exists in the cart
-    const productInCart = user.cart.some(item => item.id+"" == productId);
-    console.log(productInCart)
-
-    if (!productInCart) {
+    const productInCart = user.cart.findIndex(item => item.id+"" == productId);
+    
+    if (productInCart<0) {
       // Add the product to the cart
       user.cart.push({ id: productId, Qnt: 1 });
     }
@@ -133,14 +101,39 @@ module.exports.addToCart = async (req, res) => {
   }
 };
 
+module.exports.deleteCart= async (req, res) => {
+  try{
+  const userId = req.body.userId;
+  const productId = req.body.productId;
+  const user = await userDetail.findById(userId)
+  const data = user.cart.filter(item=>item.id+"" !==productId);
+  await userDetail.findByIdAndUpdate(userId,{$set:{cart:data}})
+  res.status(200).send(data)
+  }catch (error) {
+        console.error("Error deleting item from cart:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+
+  // try {
+  //     const userId = req.body.userId;
+  //     const productId = req.body.productId;
+  //     let updated=await userDetail.findByIdAndUpdate(userId, { $pull: { cart: productId}},{new:true}).populate("cart");
+  //     console.log(updated)
+  //     res.status(200).send(updated.cart);
+  // } catch (error) {
+  //     console.error("Error deleting item from cart:", error);
+  //     res.status(500).json({ error: "Internal server error" });
+  // }
+};
 
 module.exports.updateCartQuantity = async(req, res) =>{
   const userId = req.body.id;
   const productId = req.body.prodId;
   const qnt  = req.body.qnt;
+  console.log(productId)
+  let user = await userDetail.findById(userId)
+  console.log(user.cart[0].id+"")
 
- 
-  
   const updatedUser = await userDetail.findByIdAndUpdate(
     userId,
     { $set: { "cart.$[item].Qnt": qnt } },

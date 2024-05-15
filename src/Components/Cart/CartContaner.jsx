@@ -31,11 +31,15 @@ const CartContaner = () => {
       })
       .catch((err) => console.log(err.message));
   }, [count]);
+   
+
 
   const calculateTotal = () => {
     let sum = 0;
     checkList.forEach((item) => {
-      sum += item.charges;
+      console.log(item)
+      console.log(item.id.charges,">>>>>",item.Qnt)
+      sum += item.id.charges*item.Qnt;
     });
     return sum;
   };
@@ -61,6 +65,7 @@ const CartContaner = () => {
       })
       .catch((err) => console.log(err));
   }
+
   if (!login) {
     return (
       <div className="flex gap-4  justify-center items-center h-[95vh]">
@@ -173,7 +178,7 @@ const CartContaner = () => {
         <div className="sm:flex   w-[100%] h-full">
           <div className="sm:w-[55%]  sm:p-10 m-2">
             {checkList.map((product, index) => {
-              return <Cartcard product={product} handleClick={handleClick} setTotal={setTotal} />;
+              return <Cartcard key={index} product={product} handleClick={handleClick} setTotal={setTotal} />;
             })}
           </div>
           <div className="sm:w-[45%] align-middle p-10 m-1">
@@ -184,7 +189,7 @@ const CartContaner = () => {
               </p>
               <hr />
               <p className="flex justify-between w-[80%] mb-3">
-                <span>Shipping Charge : </span> <span>99 $</span>
+                <span>Shipping Charge : </span> <span>{total > 10000? "~Free~" : "99 $"} </span>
               </p>
               <hr />
               <p className="flex justify-between w-[80%] mb-3">
@@ -192,7 +197,7 @@ const CartContaner = () => {
               </p>
               <hr />
               <h1 className="flex justify-between w-[80%] mb-3 text-xl text-gray-300">
-                <span>Order Total: </span> <span>{total + 199}$</span>
+                <span>Order Total: </span> <span>{total>10000?total+100:total + 199}$</span>
               </h1>
               <hr />
               <button
@@ -206,43 +211,6 @@ const CartContaner = () => {
           </div>
         </div>
       )}
-      {/* {loading ? (
-        <div className="flex justify-center items-center h-[95vh]">
-          <DNA />
-        </div>
-      ) : (
-        <div className="sm:flex   w-[100%] h-full">
-          <div className="sm:w-[55%]  sm:p-10 m-2">
-            {checkList.map((product, index) => {
-              return (
-                <Cartcard product={product} handleClick={handleClick} />
-              );
-            })}
-          </div>
-          <div className="sm:w-[45%] align-middle p-10 m-1" >
-          <div className=" sticky -top-1">
-            <h1 className="text-2xl mb-8 ">Order Summary</h1>
-            <p className="flex justify-between w-[80%] mb-3">
-              <span>SubTotal : </span> <span>{total} $</span>
-            </p>
-            <hr />
-            <p className="flex justify-between w-[80%] mb-3">
-              <span>Shipping Charge : </span> <span>99 $</span>
-            </p>
-            <hr />
-            <p className="flex justify-between w-[80%] mb-3">
-              <span>Tax Estimate: </span> <span>100 $</span>
-            </p>
-            <hr />
-            <h1 className="flex justify-between w-[80%] mb-3 text-xl text-gray-300">
-              <span>Order Total: </span> <span>{total + 199}$</span>
-            </h1>
-            <hr />
-            <button onClick={handleBuy} id="rzp-button1" className="w-[100%] bg-green-400 text-black from-stone-950 font-bold rounded-md p-1 mt-2">Buy Now</button>
-          </div>
-          </div>
-        </div>
-      )} */}
     </>
   );
 };
