@@ -10,57 +10,69 @@
     <button id="btn" oninput="handleClick()"></button>
 
     <script>
-    function handleClick(e){
-      console.log(e.target.value)
-      console.log("i am clicked")
-    }
+    // function handleClick(e){
+    //   console.log(e.target.value)
+    //   console.log("i am clicked")
+    // }
 
-    function myDebounce(func,delay){
-    let timer;
-     return function(...args){
-      clearTimeout(timer)
-       timer=setTimeout(()=>{
-        func(...args)
-       },delay)
-     }
-    }
+    // function myDebounce(func,delay){
+    // let timer;
+    //  return function(...args){
+    //   clearTimeout(timer)
+    //    timer=setTimeout(()=>{
+    //     func(...args)
+    //    },delay)
+    //  }
+    // }
 
     // document.getElementById("inp").addEventListener("input",myDebounce(handleClick,1000))
     // document.getElementById("inp").addEventListener("input",handleClick)
    
 
-
-
-
-
-
-
-
-
-    function printPattern(){
-      let str=""
-      for(let i=5 ; i>=1 ; i--){
-      
-        for(let k=i ; k>0 ; k--)
-        {
-          str+=k
-        }
+    let str=""
+    
+    for(let i=6 ; i>=1 ; i--){
+     if(i==3){
         str+="\n"
-      }
-      console.log(str)
+        str+="-"
+        str+= i
+     }else if(i==1){
+        str+="\n"
+        str+= "-*"
+        str+=i
+     }else{str+=i}
     }
-    printPattern()
-    
-    
-    let arr = [1,2,"hello",7,"b"];
-    console.log(arr) // 1,2,1,7,1
-    arr.forEach((num,ind)=>{
-      if(typeof(num)=="string"){
-        arr[ind]=1
-      }
-    })
+    console.log(str)
 
-    console.log(arr)
+
+
+
+
+
+    // function printPattern(){
+    //   let str=""
+    //   for(let i=5 ; i>=1 ; i--){
+      
+    //     for(let k=i ; k>0 ; k--)
+    //     {
+    //       str+=k
+    //     }
+    //     str+="\n"
+    //   }
+    //   console.log(str)
+    // }
+    // printPattern()
+    
+    
+    // let arr = [1,2,"hello",7,"b"];
+    // console.log(arr) // 1,2,1,7,1
+    // arr.forEach((num,ind)=>{
+    //   if(typeof(num)=="string"){
+    //     arr[ind]=1
+    //   }
+    // })
+
+    // console.log(arr)
       
     //   const eventFunction = (e)=>{
     //   console.log(e.target.value)
@@ -80,11 +92,16 @@
     
     //  document.getElementById("inp").addEventListener("input",debounce(eventFunction,1000))
          
-     const testing =[{id:1232, qnt:1},{id:12211, qnt:2},{id:2121, qnt:4}];
+    //  const testing =[{id:1232, qnt:1},{id:12211, qnt:2},{id:2121, qnt:4}];
 
 
-     testing[2].qnt = 5;
-     console.log(testing)
+    //  testing[2].qnt = 5;
+    //  console.log(testing)
+
+
+
+
+
      
 
     </script>

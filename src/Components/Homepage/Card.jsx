@@ -32,13 +32,9 @@ const Card = ({ user}) => {
         Description: {`${user.description.substring(0, 100)}...ReadMore`}
       </p>
         <div className="flex justify-evenly items-center w-full p-1 text-white text-sm rounded-sm">
-        <p className="p-1 w-full">
-          <span className="text-green-600">Quan:</span>
-          {user.quantity}Pcs
-        </p>
-        <p className="p-1 ">
-          <span className="text-green-600">Available:</span>
-          {user.duration}Days
+        <p className=" w-full">
+          <span className="text-green-600 font-bold text-l ">Quantity : </span>
+          {user.quantity} Pcs
         </p>
       </div>
       <div className="flex  bg-black justify-between w-full text-white rounded-sm">
