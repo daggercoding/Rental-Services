@@ -9,6 +9,7 @@ import AboutPage from "./Components/About";
 import PageNotFound from "./Components/PageNotFound";
 import CartContaner from "./Components/Cart/CartContaner";
 import UpdateProduct from "./Components/UpdateProduct"; 
+import Protected from "./Components/Protected";
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Home/>}/>
+          <Route path="/" element={<Protected Component={Home}/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUP />} />
           <Route path="/about" element={<AboutPage />} />
