@@ -73,29 +73,21 @@
 
     console.log(arr)
       
-    //   const eventFunction = (e)=>{
-    //   console.log(e.target.value)
-    //   }
+      const eventFunction = (e)=>{
+      console.log(e.target.value)
+      }
 
-    //   const debounce = (func,delay)=>{
-    //     let timer;
-    //    return function(...args){
-    //     clearTimeout(timer)
-    //     timer=setTimeout(()=>{
-    //      func(...args)
-    //     },delay)
-    //    }
-    //   }
-
-     
-    
-    //  document.getElementById("inp").addEventListener("input",debounce(eventFunction,1000))
-         
-    //  const testing =[{id:1232, qnt:1},{id:12211, qnt:2},{id:2121, qnt:4}];
-
-
-    //  testing[2].qnt = 5;
-    //  console.log(testing)
+      const debounce = (func,delay)=>{
+        let timer;
+       return function(...args){
+        clearTimeout(timer)
+        timer=setTimeout(()=>{
+         func(...args)
+        },delay)
+       }
+      }
+      
+     document.getElementById("inp").addEventListener("input",debounce(eventFunction,1000))
 
 
 
