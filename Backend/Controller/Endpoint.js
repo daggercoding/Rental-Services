@@ -188,3 +188,21 @@ module.exports.getItemById=async(req,res)=>{
    res.send(err)
   }
   }
+
+module.exports.order = async(req, res)=>{
+  try{
+      const razorpay = new Razorpay({
+          key_id:process.env.RAZORPAYID,
+          key_secret:process.env.RAZORPAYKEY
+      })
+  
+      const option = req.body
+      const order = await razorpay.orders.create(option)
+      if(!order){
+          res.status(500).send("some error occured")
+      }
+      res.status(200).json(order)
+  }catch(err){
+      console.log(err)
+  }
+}
