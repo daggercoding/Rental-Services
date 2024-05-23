@@ -37,52 +37,15 @@ app.delete("/deleteCart",endpoint.deleteCart)
 
 app.post("/updateCartQuantity",endpoint.updateCartQuantity)
 
-app.post("/order", async(req, res)=>{
-    try{
-        const razorpay = new Razorpay({
-            key_id:process.env.RAZORPAYID,
-            key_secret:process.env.RAZORPAYKEY
-        })
-    
-        const option = req.body
-        const order = await razorpay.orders.create(option)
-        if(!order){
-            res.status(500).send("some error occured")
-        }
-        res.status(200).json(order)
-    }catch(err){
-        console.log(err)
-    }
-})
+app.post("/order", endpoint.order)
 
-app.post("/validatePayment",(req,res)=>{
-    try{
-        
-        const {razorpay_order_id,razorpay_payment_id,razorpay_signature}=req.body
-        const sha  = crypto.createHmac("sha256",process.env.RAZORPAYKEY)
-        sha.update(`${razorpay_order_id}|${razorpay_payment_id}`)
-        const digest = sha.digest("hex")
-        if(digest!==razorpay_signature){
-            return res.status(400).json({msg:"Transaction is not Legit"})
-        }
-        res.json({
-            status:"Sucess",
-            orderId:razorpay_order_id,
-            paymentId:razorpay_payment_id
-        })
-    }catch(err){
-        console.log(err)
-    }
-   
-})
+app.post("/validatePayment",endpoint.validatePayment)
 
 app.delete("/emptyCart", async (req, res) =>{
     const id = req.body.ids;
-
    let deltedData = await userDetail.findOneAndUpdate({_id:id}, { $unset:{"cart":1}},{new:false} );
    console.log(deltedData)
     res.status(200).json({status:"success", data:deltedData});
-
 })
 app.listen(8000,()=>{
     console.log("Server is Up Baby..:)")

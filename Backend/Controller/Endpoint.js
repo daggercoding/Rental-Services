@@ -206,3 +206,24 @@ module.exports.order = async(req, res)=>{
       console.log(err)
   }
 }
+
+module.exports.validatePayment=(req,res)=>{
+  try{
+      
+      const {razorpay_order_id,razorpay_payment_id,razorpay_signature}=req.body
+      const sha  = crypto.createHmac("sha256",process.env.RAZORPAYKEY)
+      sha.update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      const digest = sha.digest("hex")
+      if(digest!==razorpay_signature){
+          return res.status(400).json({msg:"Transaction is not Legit"})
+      }
+      res.json({
+          status:"Sucess",
+          orderId:razorpay_order_id,
+          paymentId:razorpay_payment_id
+      })
+  }catch(err){
+      console.log(err)
+  }
+ 
+}
