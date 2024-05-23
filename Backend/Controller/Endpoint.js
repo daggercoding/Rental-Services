@@ -209,7 +209,6 @@ module.exports.order = async(req, res)=>{
 
 module.exports.validatePayment=(req,res)=>{
   try{
-      
       const {razorpay_order_id,razorpay_payment_id,razorpay_signature}=req.body
       const sha  = crypto.createHmac("sha256",process.env.RAZORPAYKEY)
       sha.update(`${razorpay_order_id}|${razorpay_payment_id}`)
@@ -226,4 +225,11 @@ module.exports.validatePayment=(req,res)=>{
       console.log(err)
   }
  
+}
+
+module.exports.emptyCart = async (req, res) =>{
+  const id = req.body.ids;
+ let deltedData = await userDetail.findOneAndUpdate({_id:id}, { $unset:{"cart":1}},{new:false} );
+ console.log(deltedData)
+  res.status(200).json({status:"success", data:deltedData});
 }

@@ -41,12 +41,8 @@ app.post("/order", endpoint.order)
 
 app.post("/validatePayment",endpoint.validatePayment)
 
-app.delete("/emptyCart", async (req, res) =>{
-    const id = req.body.ids;
-   let deltedData = await userDetail.findOneAndUpdate({_id:id}, { $unset:{"cart":1}},{new:false} );
-   console.log(deltedData)
-    res.status(200).json({status:"success", data:deltedData});
-})
+app.delete("/emptyCart",endpoint.emptyCart)
+
 app.listen(8000,()=>{
     console.log("Server is Up Baby..:)")
 })
