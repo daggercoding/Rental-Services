@@ -10,70 +10,37 @@ const Cards = () => {
 
   const Navigate = useNavigate()
   
-  //  useEffect(()=>{
+   useEffect(()=>{
   
-  //   if(login){
-  //     fetch("http://localhost:8000/getitems")
-  //     .then((resp)=>{
-  //       return resp.json()})
-  //     .then((item)=>{
-  //       setData([...item.data.reverse()])
-  //     })
-  //     .catch((err)=>console.log(err.message))
-  //     let id =JSON.parse(localStorage.getItem("token"))
-  //     const data = {id}
-      
-  //     fetch("http://localhost:8000/singleUser",{
-  //       method:"POST",
-  //       headers:{"Content-Type":"application/json"},
-  //       body:JSON.stringify(data)
-  //     }).then(res=>res.json())
-  //     .then(data=>{
-  //       let name = data.data.name.toUpperCase()
-  //       setName(name)
-  //       setCount(data.data.cart.length)
-  //     })
-  //     .catch(err=>err)
-
-  //   }else
-  //   {
-  //     Navigate("/login")
-  //   }
-    
-  // },[Navigate])
-
-  //vishal changes for netlify
-  useEffect(() => {
-    if (login) {
-      // Fetch items
+    if(login){
       fetch("http://localhost:8000/getitems")
-        .then((resp) => resp.json())
-        .then((item) => {
-          setData([...item.data.reverse()]);
-        })
-        .catch((err) => console.log(err.message));
-  
-      // Fetch user data
-      let id = JSON.parse(localStorage.getItem("token"));
-      const data = { id };
-  
-      fetch("http://localhost:8000/singleUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      .then((resp)=>{
+        return resp.json()})
+      .then((item)=>{
+        setData([...item.data.reverse()])
       })
-        .then((res) => res.json())
-        .then((data) => {
-          let name = data.data.name.toUpperCase();
-          setName(name);
-          setCount(data.data.cart.length);
-        })
-        .catch((err) => err);
-    } else {
-      Navigate("/login");
+      .catch((err)=>console.log(err.message))
+      let id =JSON.parse(localStorage.getItem("token"))
+      const data = {id}
+      
+      fetch("http://localhost:8000/singleUser",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(data)
+      }).then(res=>res.json())
+      .then(data=>{
+        let name = data.data.name.toUpperCase()
+        setName(name)
+        setCount(data.data.cart.length)
+      })
+      .catch(err=>err)
+
+    }else
+    {
+      Navigate("/login")
     }
-  }, [login, setData, setName, setCount]); // Add missing dependencies
-  
+    
+  },[Navigate])
   
   return (
     <>
