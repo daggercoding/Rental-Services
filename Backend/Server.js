@@ -4,7 +4,7 @@ const env = require("dotenv")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const endpoint=require("./Controller/Endpoint")
-const Razorpay = require("razorpay")
+
 const crypto = require("crypto");
 const { userDetail } = require("./Model/Db");
 

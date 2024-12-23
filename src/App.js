@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
-import Home from "./Components/HomePage/Home";
+import Home from "./Components/Homepage/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ListItem from "./Components/ListItem";
 import SignUP from "./Components/SignUp";
@@ -18,7 +18,8 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path="/" element={<Protected Component={Home}/>}/>
+          {/* <Route path="/" element={<Protected Component={Home}/>}/> */}
+          <Route path="/" element={<Home/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUP />} />
           <Route path="/about" element={<AboutPage />} />

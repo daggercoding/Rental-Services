@@ -1,7 +1,7 @@
 const {userDetail,userItem} = require("../Model/Db")
-
 const jwt = require("jsonwebtoken")
 const env = require("dotenv")
+const Razorpay = require("razorpay")
 env.config()
 
 module.exports.login = async (req, res) => {
