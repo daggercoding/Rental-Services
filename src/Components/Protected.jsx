@@ -9,11 +9,17 @@ const Protected = ({Children}) => {
 
   const Navigate = useNavigate()
 
+    // useEffect(()=>{
+    //   if(!login){
+    //     Navigate("/login")
+    //   }
+    // },[Navigate])
+   //vishal changes for netlify
     useEffect(()=>{
       if(!login){
         Navigate("/login")
       }
-    },[Navigate])
+    },[Navigate,login])
 
   return (
     <Children/>

@@ -1,5 +1,5 @@
 import { Link, useNavigate} from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { RandomContext } from "./Utils/Context";
 

@@ -4,9 +4,14 @@ export default function Cartcard({ product, handleClick, setTotal }) {
   const [add, setAdd] = useState(1);
   const id = useId();
   console.log("idddddddd", id);
+
+  // useEffect(() => {
+  //   setAdd(product.Qnt);
+  // },[]);
+  // vishal changes for netlify
   useEffect(() => {
     setAdd(product.Qnt);
-  }, []);
+  },[]);
 
   function increment(price, id) {
     if (add >= product.id.quantity) {
@@ -30,10 +35,9 @@ export default function Cartcard({ product, handleClick, setTotal }) {
     }
   }
 
-  console.log(add);
 
   function decrement(price,id) {
-    if (add == 1) {
+    if (add === 1) {
       setAdd(1);
     } else {
       setAdd((prev) => prev - 1);

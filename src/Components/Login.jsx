@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { RandomContext } from "./Utils/Context"
 

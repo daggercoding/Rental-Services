@@ -21,7 +21,7 @@ const UpdateProduct = () => {
         setPrice(data.charges)
       })
       .catch(err=>console.log(err.message))
-    },[])
+    },)
 
     function handleClick(event){
     event.preventDefault()

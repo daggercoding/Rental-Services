@@ -15,6 +15,24 @@ const CartContaner = () => {
   const [res, setRes] = useState([]);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const id = JSON.parse(localStorage.getItem("token"));
+  //   const data = { id: id };
+  //   fetch("http://localhost:8000/singleUser", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       setCheckList(data.data.cart);
+  //       setUser(data.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => console.log(err.message));
+  // }, [count]);
+
+  //vishal changes for netlify
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("token"));
     const data = { id: id };
@@ -30,7 +48,8 @@ const CartContaner = () => {
         setLoading(false);
       })
       .catch((err) => console.log(err.message));
-  }, [count]);
+  }, [count, calculateTotal, setCount]); // Add missing dependencies
+  
    
 
 

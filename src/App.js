@@ -9,7 +9,7 @@ import AboutPage from "./Components/About";
 import PageNotFound from "./Components/PageNotFound";
 import CartContaner from "./Components/Cart/CartContaner";
 import UpdateProduct from "./Components/UpdateProduct"; 
-import Protected from "./Components/Protected";
+
 
 
 function App() {
